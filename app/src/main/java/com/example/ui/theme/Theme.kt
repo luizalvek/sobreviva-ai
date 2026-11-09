@@ -1,0 +1,97 @@
+package com.example.ui.theme
+
+import android.app.Activity
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
+
+private val VeredaColorScheme = darkColorScheme(
+  primary = AmberAccent,
+  onPrimary = OnAmber,
+  primaryContainer = AmberContainer,
+  onPrimaryContainer = AmberAccent,
+
+  secondary = TacticalOlive,
+  onSecondary = CharcoalBackground,
+  secondaryContainer = OliveContainer,
+  onSecondaryContainer = TacticalOlive,
+
+  tertiary = AmberAccentVariant,
+  onTertiary = OnAmber,
+
+  background = CharcoalBackground,
+  onBackground = TextPrimary,
+
+  surface = CharcoalSurface,
+  onSurface = TextPrimary,
+  surfaceVariant = CharcoalSurfaceVariant,
+  onSurfaceVariant = TextSecondary,
+
+  outline = CharcoalBorder,
+  outlineVariant = CharcoalSurfaceVariant,
+
+  error = EmergencyRed,
+  onError = TextPrimary,
+  errorContainer = EmergencyRedDark,
+  onErrorContainer = EmergencyRedLight
+)
+
+private val BatterySaverColorScheme = darkColorScheme(
+  primary = TacticalOlive,
+  onPrimary = CharcoalBackground,
+  primaryContainer = OliveContainer,
+  onPrimaryContainer = TacticalOlive,
+
+  secondary = TextSecondary,
+  onSecondary = CharcoalBackground,
+  secondaryContainer = CharcoalSurface,
+  onSecondaryContainer = TextSecondary,
+
+  background = BatterySaverBackground,
+  onBackground = TextPrimary,
+
+  surface = BatterySaverSurface,
+  onSurface = TextPrimary,
+  surfaceVariant = CharcoalSurface,
+  onSurfaceVariant = TextTertiary,
+
+  outline = CharcoalBorder,
+  outlineVariant = CharcoalSurface,
+
+  error = EmergencyRed,
+  onError = TextPrimary,
+  errorContainer = EmergencyRedDark,
+  onErrorContainer = EmergencyRedLight
+)
+
+@Composable
+fun MyApplicationTheme(
+  batterySaver: Boolean = false,
+  content: @Composable () -> Unit
+) {
+  val colorScheme = if (batterySaver) BatterySaverColorScheme else VeredaColorScheme
+  val view = LocalView.current
+
+  if (!view.isInEditMode) {
+    SideEffect {
+      val window = (view.context as? Activity)?.window
+      if (window != null) {
+        window.statusBarColor = colorScheme.background.toArgb()
+        window.navigationBarColor = colorScheme.background.toArgb()
+        val insetsController = WindowCompat.getInsetsController(window, view)
+        insetsController.isAppearanceLightStatusBars = false
+        insetsController.isAppearanceLightNavigationBars = false
+      }
+    }
+  }
+
+  MaterialTheme(
+    colorScheme = colorScheme,
+    typography = Typography,
+    content = content
+  )
+}

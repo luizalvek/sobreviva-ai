@@ -1,0 +1,8 @@
+{
+  "name": "Remix Vereda",
+  "description": "Instrumento de campo e guia de sobrevivência com I.A offline, mapas, biblioteca técnica e modo de emergência SOS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
